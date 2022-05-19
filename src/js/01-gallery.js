@@ -1,7 +1,7 @@
 import { galleryItems } from './gallery-items.js';
 // Change code below this line
 
-console.log(galleryItems);
+// console.log(galleryItems);
 
 const galleryContainer = document.querySelector('.gallery');
 const galleryMarkup = createGalleryItemsMarkup(galleryItems);
@@ -28,22 +28,17 @@ function createGalleryItemsMarkup(galleryItems) {
     .join('');
 }
 function clickOnGalerryContainer(event) {
-  if (!event.target.classList.contains('.gallery__image')) {
+  if (!event.target.classList.contains('gallery__image')) {
     return;
   }
-  //   const instance = basicLightbox.create(`
-  //      <img src="${event.target.dataset.source}"
-  //      />
+  const instance = basicLightbox.create(`
+       <img src="${event.target.dataset.source}"
+       />
 
-  // `);
-  //   instance.show();
-  document.querySelector('.gallery__image').onclick = () => {
-    basicLightbox
-      .create(
-        `
-		<img  src="${event.target.dataset.source}">
-	`
-      )
-      .show();
-  };
+  `);
+  instance.show();
+
+  if (event.code === 'Escape') {
+    instance.close();
+  }
 }
