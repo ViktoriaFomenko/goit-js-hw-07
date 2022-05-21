@@ -37,7 +37,6 @@ function clickOnGalerryContainer(event) {
        <img src="${event.target.dataset.source}"
        />
   `);
-
   instance.show();
   document.addEventListener('keydown', escClick);
 }
