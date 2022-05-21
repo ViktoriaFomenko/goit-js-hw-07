@@ -11,8 +11,6 @@ galleryContainer.insertAdjacentHTML('afterbegin', galleryMarkup);
 
 galleryContainer.addEventListener('click', clickOnGalerryContainer);
 
-document.addEventListener('keydown', escClick);
-
 function createGalleryItemsMarkup(galleryItems) {
   return galleryItems
     .map(({ preview, original, description }) => {
@@ -32,7 +30,7 @@ function createGalleryItemsMarkup(galleryItems) {
 }
 function clickOnGalerryContainer(event) {
   console.log(event);
-  if (!event.target.classList.contains('gallery__image')) {
+  if (event.target.nodeName !== 'IMG') {
     return;
   }
   instance = basicLightbox.create(`
@@ -41,10 +39,12 @@ function clickOnGalerryContainer(event) {
   `);
 
   instance.show();
+  document.addEventListener('keydown', escClick);
 }
 
 function escClick(event) {
-  if (event.code === 'Escape' && instance !== undefined) {
+  if (event.code === 'Escape') {
     instance.close();
+    document.removeEventListener('keydown', escClick);
   }
 }
