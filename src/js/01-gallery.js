@@ -33,12 +33,22 @@ function clickOnGalerryContainer(event) {
   if (event.target.nodeName !== 'IMG') {
     return;
   }
-  instance = basicLightbox.create(`
+  instance = basicLightbox.create(
+    `
        <img src="${event.target.dataset.source}"
        />
-  `);
+  `,
+    {
+      onClose: () => {
+        document.removeEventListener('keydown', escClick);
+      },
+      onShow: () => {
+        document.addEventListener('keydown', escClick);
+      },
+    }
+  );
+
   instance.show();
-  document.addEventListener('keydown', escClick);
 }
 
 function escClick(event) {
